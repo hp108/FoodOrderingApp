@@ -8,6 +8,7 @@ function MealItem(props) {
     const price = `$${props.price.toFixed (2)}`
     const cartCtx=useContext(CartContext)
     
+    
 
     const addHandler=(amount)=>{
       const items = {

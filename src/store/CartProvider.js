@@ -8,22 +8,46 @@ const defaultState = {
 
 const cartReducer = (state, action) => {
  
-
   if (action.type === "ADD") {
-    const updatedItems = state.items.concat(action.item);
-    const updatedAmount = (+state.TotalAmount) + (+action.item.price) * (+action.item.amount);
+    const updatedTotalAmount  = (+state.TotalAmount) + (+action.item.price) * (+action.item.amount); 
+    const existingItemId = state.items.find((item) =>{
+    return action.item.id === item.id
+    } )
+    let updatedItems = [...state.items];
+    if(existingItemId)
+    { 
+      existingItemId.amount = existingItemId.amount + action.item.amount;
+    }
+    else{
+       updatedItems = state.items.concat(action.item);
+    }
+
     return {
       items: updatedItems,
-      TotalAmount: updatedAmount,
+      TotalAmount: updatedTotalAmount,
     };
   }
 
   if (action.type === "DELETE") {
-    // You need to write code to delete an item from the cart
-    return state;
+    
+    const existingItem = state.items.find(item =>{
+      return item.id === action.id
+    })
+    let updatedItems = state.items;
+    const updatedTotalAmount = state.TotalAmount - existingItem.price;
+    existingItem.amount-=1
+    if(existingItem.amount <= 0)
+    {
+      updatedItems= state.items.filter(item =>{
+        return item.id !== existingItem.id
+      })
+    }
+    return {
+      items: updatedItems,
+      TotalAmount: updatedTotalAmount
+    }
   }
-
-  return state;
+  return defaultState;
 };
 
 function CartProvider(props) {

@@ -5,15 +5,17 @@ import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 
 function Cart(props) {
+
+
   const cartContext = useContext(CartContext);
   const totalAmount = `$${cartContext.amount.toFixed(2)}`;
   const hasItems = cartContext.items.length > 0;
 
-  const addHandler = () => {
-    console.log("added");
+  const addHandler = (item) => {
+    cartContext.addItem({...item,amount:1})
   };
-  const removeHandler = () => {
-    console.log("removed");
+  const removeHandler = (id) => {
+   cartContext.deleteItem(id)
   };
 
   const cartItems = (

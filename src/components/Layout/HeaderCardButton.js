@@ -19,9 +19,12 @@ function HeaderCardButton(props) {
       return;
     }
     setBtn(true)
-    setTimeout(()=>{
+    const timer = setTimeout(()=>{
       setBtn(false)
     },300)
+    return()=>{
+      clearTimeout(timer)
+    }
   },[cartContext.items])
 
   const button = `${classes.button} ${btn && classes.bump}`

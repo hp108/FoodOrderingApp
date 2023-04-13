@@ -14,7 +14,6 @@ function App() {
   const closeCartHandler = () =>{
     setCartIsShown(false)
   }
-  
   return (
     <CartProvider>
       { cartIsShown && <Cart onClose={closeCartHandler} />}

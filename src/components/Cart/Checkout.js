@@ -44,12 +44,17 @@ const Checkout = (props) => {
       postalCode : isSixChars(postalInputRef.current.value),
       city : !isEmpty(cityInputRef.current.value)
     }) 
-    console.log(formInputValidity)
     if(!formIsValid)
     {
       return ;
     }
-    console.log(name , city , street, postalCode)
+
+    props.onConfirm({
+      name: nameInputRef.current.value,
+      street : streetInputRef.current.value,
+      postalCode: postalInputRef.current.value,
+      city : cityInputRef.current.value
+    });
   };
 
   const nameControlClass = `${classes.control} ${formInputValidity.name ? '' : classes.invalid}`
